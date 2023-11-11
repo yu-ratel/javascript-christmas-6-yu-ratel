@@ -10,11 +10,17 @@ class App {
   async run() {
     this.OutputView.startMessage();
     await this.#requestEstimatedVisitDate();
+    await this.#requestOrderMenu();
   }
 
   async #requestEstimatedVisitDate() {
     const visitDate = await this.InputView.estimatedVisitDate();
     return visitDate;
+  }
+  
+  async #requestOrderMenu() {
+    const orderMenu = await this.InputView.orderMenu();
+    return orderMenu;
   }
 }
 
