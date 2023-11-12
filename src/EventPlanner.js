@@ -1,6 +1,6 @@
 import EVENT from './Constants/event.js';
 
-class EventManager {
+class EventPlanner {
   #visitday;
   
   #amount;
@@ -35,4 +35,4 @@ class EventManager {
   }
 }
 
-export default EventManager;
+export default EventPlanner;
