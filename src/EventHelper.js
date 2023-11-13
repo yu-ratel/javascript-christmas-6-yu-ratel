@@ -1,13 +1,13 @@
 import MENU from './Constants/menu.js';
 
 class EventHelper {
-  calculateChristmasEventDiscount(visitday) {
+  static calculateChristmasEventDiscount(visitday) {
     const discountMoney = 900;
 
     return discountMoney + (100 * visitday);
   }
 
-  calculateWeekdayEventDiscount(orderMenu) {
+  static calculateWeekdayEventDiscount(orderMenu) {
     const discountMenu = Object.values(MENU.DESSERT);
     let discountMoney = 0;
 
@@ -23,7 +23,7 @@ class EventHelper {
     return discountMoney;
   }
 
-  calculateWeekendEventDiscount(orderMenu) {
+  static calculateWeekendEventDiscount(orderMenu) {
     const discountMenu = Object.values(MENU.MAIN);
     let discountMoney = 0;
 
@@ -38,17 +38,13 @@ class EventHelper {
     return discountMoney;
   }
 
-  specialEventDiscount() {
+  static specialEventDiscount() {
     return 1000;
   }
 
-  freeGiftEvent() {
-    return Object.values(MENU.BEVERAGE.champagne);
+  static freeGiftEvent() {
+    return MENU.BEVERAGE.champagne.price;
   }
 }
 
 export default EventHelper;
-
-let a = new EventHelper();
-
-console.log(a.freeGiftEvent());

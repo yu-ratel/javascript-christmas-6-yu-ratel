@@ -1,35 +1,56 @@
 import EVENT from './Constants/event.js';
+import EventHelper from './EventHelper.js';
 
 class EventPlanner {
   #visitday;
-  
-  #amount;
 
-  constructor(visitday, amount) {
-    this.#visitday = visitday;
-    this.#amount = amount;
+  eventState = [];
+
+  #freeGift = false;
+
+  constructor(visitday, orderMenu, totalAmount) {
+    this.#visitday = visitday; 
+    this.#isChristmasEventApplied();
+    this.#isWeekEventApplied(orderMenu);
+    this.#isSpecialEventApplied();
+    this.#isFreeGift(totalAmount);
+    this.#freeGiftEventApplied();
+  }
+
+  #isFreeGift(totalAmount) {
+    if (totalAmount >= 120000) {
+      this.#freeGift = true;
+    }
   }
 
   #isChristmasEventApplied() {
-    if (this.#visitday >= 1 && this.#visitday <= 25) return true;
-    
-    return false;
+    if (this.#visitday >= 1 && this.#visitday <= 25) {
+      this.eventState.push(['크리스마스 디데이 할인', EventHelper.calculateChristmasEventDiscount(this.#visitday)]);
+    }
   }
 
-  #isWeekEventApplied() {
-    if (EVENT.weekendDays.inclduse(this.#visitday)) return true;
+  #isWeekEventApplied(orderMenu) {
+    if (EVENT.weekends.includes(Number(this.#visitday))) {
+      return this.eventState.push(['주말 할인', EventHelper.calculateWeekendEventDiscount(orderMenu)]);
+    }
 
-    return false;
+    return this.eventState.push(['평일 할인', EventHelper.calculateWeekdayEventDiscount(orderMenu)]);
   }
 
   #isSpecialEventApplied() {
-    if (EVENT.specialDays.includes(this.#visitday)) return true;
-
-    return false;
+    if (EVENT.specialDays.includes(Number(this.#visitday))) {
+      this.eventState.push(['특별 할인', EventHelper.specialEventDiscount()]);
+    }
   }
 
   #freeGiftEventApplied() {
-    if (this.#amount >= 120000) return true;
+    if ((this.#isFreeGift)) {
+      this.eventState.push(['증정 이벤트', EventHelper.freeGiftEvent()]);
+    }
+  }
+
+  getIsFreeGift() {
+    if (this.#freeGift) return true;
 
     return false;
   }
