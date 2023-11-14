@@ -26,6 +26,12 @@ class OrderManager {
     return this.#totalAmount;
   }
 
+  calculateDiscountedTotalAmount(discountAmount) {
+    if (this.#totalAmount >= 120000) return this.#totalAmount + (discountAmount + 25000);
+
+    return this.#totalAmount + discountAmount;
+  }
+
   getOrderMenu() {
     return this.#orderMenu;
   }
