@@ -7,6 +7,8 @@ class EventPlanner {
   eventState = [];
 
   #freeGift = false;
+  
+  #discount = 0;
 
   constructor(visitday, orderMenu, totalAmount) {
     this.#visitday = visitday; 
@@ -50,9 +52,20 @@ class EventPlanner {
   }
 
   calculateTotalDiscount() {
-    const totalDiscount = this.eventState.reduce((acc, cur) => acc + cur[1], 0);
+    this.#discount = this.eventState.reduce((acc, cur) => acc + cur[1], 0);
+    const totalDiscount = this.#discount;
 
     return totalDiscount;
+  }
+
+  calculateBadgeEvent() {
+    const positiveTotalDiscount = Math.abs(this.#discount) ;
+
+    if (positiveTotalDiscount >= 20000) return '산타';
+    if (positiveTotalDiscount >= 10000) return '트리';
+    if (positiveTotalDiscount >= 5000) return '별';
+
+    return '없음';
   }
 
   getIsFreeGift() {
