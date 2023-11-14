@@ -1,5 +1,5 @@
 import MenuManager from './MenuManager.js';
-import ERROR from './Constants/error.js';
+import ERROR from './constants/error.js';
 
 class OrderManager {
   #orderMenu;
@@ -23,8 +23,8 @@ class OrderManager {
     this.#checkAvailableMenu();
     this.#checkDuplicationMenu();
     this.#checkMenuCount();
-    this.#checkMaxCount();
     this.#checkOnlyBeverage();
+    this.#checkMaxCount();
   }
 
   #checkAvailableMenu() {
@@ -61,7 +61,7 @@ class OrderManager {
   }
 
   #checkMaxCount() {
-    const orederMenuCount = this.#orderMenu.reduce((acc, cur) => acc + cur[1], 0);
+    const orederMenuCount = this.#orderMenu.reduce((acc, cur) => acc + Number(cur[1]), 0);
 
     if (orederMenuCount > 20) {
       throw (ERROR.MESSAGE.maxCount);
