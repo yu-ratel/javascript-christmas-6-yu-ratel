@@ -18,6 +18,18 @@ class MenuManager {
 
     return price;
   }
+
+  static getDessert() {
+    return Object.values(MENU.DESSERT);
+  }
+
+  static getMain() {
+    return Object.values(MENU.MAIN);
+  }
+
+  static getBeverageNames() {
+    return Object.values(MENU.BEVERAGE).map(menu => menu.name);
+  }
 }
 
 export default MenuManager;

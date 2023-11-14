@@ -23,6 +23,8 @@ class OrderManager {
     this.#checkAvailableMenu();
     this.#checkDuplicationMenu();
     this.#checkMenuCount();
+    this.#checkMaxCount();
+    this.#checkOnlyBeverage();
   }
 
   #checkAvailableMenu() {
@@ -48,6 +50,24 @@ class OrderManager {
     });
   }
 
+  #checkOnlyBeverage() {
+    const beveragMenuNames = MenuManager.getBeverageNames();
+    const isOnlyBeverage = this.#orderMenu.every(menu => beveragMenuNames.includes(menu[0]));
+
+    if(isOnlyBeverage) {
+      throw (ERROR.MESSAGE.onlyBeverage);
+    }
+    
+  }
+
+  #checkMaxCount() {
+    const orederMenuCount = this.#orderMenu.reduce((acc, cur) => acc + cur[1], 0);
+
+    if (orederMenuCount > 20) {
+      throw (ERROR.MESSAGE.maxCount);
+    }
+  }
+
   calculateTotalOrderAmount() {
     this.#orderMenu.forEach((menu) => {
       const [name, count] = menu;
@@ -70,4 +90,3 @@ class OrderManager {
 }
 
 export default OrderManager;
-
