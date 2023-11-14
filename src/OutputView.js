@@ -6,7 +6,7 @@ const OutputView = {
   },
 
   previewGuide(visitday) {
-    this.print(`12월 ${visitday}에 우테코 식당에서 받을 이벤트 혜택 미리 보기!`);
+    this.print(`12월 ${visitday}일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!`);
   },
 
   orderMenu(orderMenu) {
@@ -21,7 +21,7 @@ const OutputView = {
 
   orderAmount(amount) {
     this.print(`\n<할인 전 총주문 금액>
-${amount}원`);
+${amount.toLocaleString()}원`);
   },
 
   freeGift(isgift) {
@@ -39,18 +39,18 @@ ${amount}원`);
 
     return eventState.forEach((state) => {
       const [message, discount] = state;
-      if (discount < 0) this.print(`${message}: ${discount}원`);
+      if (discount < 0) this.print(`${message}: ${discount.toLocaleString()}원`);
     });
   },
 
   discountAmount(amount) {
     this.print(`\n<총혜택 금액>
-${amount}원`);
+${amount.toLocaleString()}원`);
   },
 
   discountedTotalAmount(amount) {
     this.print(`\n<할인 후 예상 결제 금액>
-${amount}원`);
+${amount.toLocaleString()}원`);
   },
 
   BadgeEvent(badge) {
@@ -60,7 +60,7 @@ ${badge}`);
 
   print(message) {
     Console.print(message);
-  }
+  },
 };
 
 export default OutputView;
