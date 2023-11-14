@@ -1,4 +1,4 @@
-import MENU from './Constants/menu.js';
+import MENU from './constants/menu.js';
 
 class EventHelper {
   static calculateChristmasEventDiscount(visitday) {
