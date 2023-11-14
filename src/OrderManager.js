@@ -1,4 +1,5 @@
 import MenuManager from './MenuManager.js';
+import ERROR from './Constants/error.js';
 
 class OrderManager {
   #orderMenu;
@@ -9,11 +10,42 @@ class OrderManager {
     this.menuManager = new MenuManager();
     this.#totalAmount = 0;
     this.#orderMenuParse(orderMenu);
+    this.#validate();
   }
 
   #orderMenuParse(orderMenu) {
     const menus = orderMenu.split(',').map((menu) => menu.split('-'));
+
     this.#orderMenu = menus;
+  }
+
+  #validate() {
+    this.#checkAvailableMenu();
+    this.#checkDuplicationMenu();
+    this.#checkMenuCount();
+  }
+
+  #checkAvailableMenu() {
+    if(!this.menuManager.isMenuAvailable(this.#orderMenu)) {
+      throw (ERROR.MESSAGE.invalidOrder);
+    }
+  }
+
+  #checkDuplicationMenu() {
+    const menuNames = this.#orderMenu.map((menu) => menu[0]);
+
+    if (new Set(menuNames).size !== menuNames.length) {
+      throw (ERROR.MESSAGE.invalidOrder);
+    }
+  }
+
+  #checkMenuCount() {
+    const menuCounts = this.#orderMenu.map(meun => meun[1]);
+
+    menuCounts.forEach((count) => {
+      if (count < 1) throw (ERROR.MESSAGE.invalidOrder);
+      if (/[^0-9]/.test(count)) throw (ERROR.MESSAGE.invalidOrder); 
+    });
   }
 
   calculateTotalOrderAmount() {
@@ -38,3 +70,4 @@ class OrderManager {
 }
 
 export default OrderManager;
+
