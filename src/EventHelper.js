@@ -4,7 +4,7 @@ class EventHelper {
   static calculateChristmasEventDiscount(visitday) {
     const discountMoney = 900;
 
-    return discountMoney + (100 * visitday);
+    return -(discountMoney + (100 * visitday));
   }
 
   static calculateWeekdayEventDiscount(orderMenu) {
@@ -16,7 +16,7 @@ class EventHelper {
       const discountedMenu = discountMenu.find(dessert => dessert.name === name);
       
       if (discountedMenu) {
-        discountMoney += (count * 2023);
+        discountMoney += (count * -2023);
       }
     });
 
@@ -32,18 +32,18 @@ class EventHelper {
       const discountedMenu = discountMenu.find(main => main.name === name);
       
       if (discountedMenu) {
-        discountMoney += (count * 2023);
+        discountMoney += (count * -2023);
       }
     });
     return discountMoney;
   }
 
   static specialEventDiscount() {
-    return 1000;
+    return -1000;
   }
 
   static freeGiftEvent() {
-    return MENU.BEVERAGE.champagne.price;
+    return -MENU.BEVERAGE.champagne.price;
   }
 }
 
