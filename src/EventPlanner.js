@@ -44,9 +44,15 @@ class EventPlanner {
   }
 
   #freeGiftEventApplied() {
-    if ((this.#isFreeGift)) {
+    if ((this.#freeGift)) {
       this.eventState.push(['증정 이벤트', EventHelper.freeGiftEvent()]);
     }
+  }
+
+  calculateTotalDiscount() {
+    const totalDiscount = this.eventState.reduce((acc, cur) => acc + cur[1], 0);
+
+    return totalDiscount;
   }
 
   getIsFreeGift() {
