@@ -1,4 +1,4 @@
-import MENU from './constants/menu.js';
+import { MENU } from './constants/menu.js';
 import { DISCOUNT_AMOUNT } from './constants/event.js';
 
 class EventHelper {

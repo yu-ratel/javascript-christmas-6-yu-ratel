@@ -1,5 +1,7 @@
 import MenuManager from './MenuManager.js';
 import ERROR from './constants/error.js';
+import { ORDER, REGEXP } from './constants/menu.js';
+import { MINIMUM_AMOUNT } from './constants/event.js';
 
 class OrderManager {
   #orderMenu;
@@ -8,13 +10,13 @@ class OrderManager {
 
   constructor(orderMenu) {
     this.menuManager = new MenuManager();
-    this.#totalAmount = 0;
+    this.#totalAmount = ORDER.initAmount;
     this.#orderMenuParse(orderMenu);
     this.#validate();
   }
 
   #orderMenuParse(orderMenu) {
-    const menus = orderMenu.split(',').map((menu) => menu.split('-'));
+    const menus = orderMenu.split(ORDER.delimiter.Comma).map((menu) => menu.split(ORDER.delimiter.bar));
 
     this.#orderMenu = menus;
   }
@@ -34,7 +36,7 @@ class OrderManager {
   }
 
   #checkDuplicationMenu() {
-    const menuNames = this.#orderMenu.map((menu) => menu[0]);
+    const menuNames = this.#orderMenu.map((menu) => menu[ORDER.nameIndex]);
 
     if (new Set(menuNames).size !== menuNames.length) {
       throw (ERROR.MESSAGE.invalidOrder);
@@ -42,17 +44,17 @@ class OrderManager {
   }
 
   #checkMenuCount() {
-    const menuCounts = this.#orderMenu.map(meun => meun[1]);
+    const menuCounts = this.#orderMenu.map(meun => meun[ORDER.countIndex]);
 
     menuCounts.forEach((count) => {
-      if (count < 1) throw (ERROR.MESSAGE.invalidOrder);
-      if (/[^0-9]/.test(count)) throw (ERROR.MESSAGE.invalidOrder); 
+      if (count < ORDER.minumumCount) throw (ERROR.MESSAGE.invalidOrder);
+      if (REGEXP.isNotNumber.test(count)) throw (ERROR.MESSAGE.invalidOrder); 
     });
   }
 
   #checkOnlyBeverage() {
     const beveragMenuNames = MenuManager.getBeverageNames();
-    const isOnlyBeverage = this.#orderMenu.every(menu => beveragMenuNames.includes(menu[0]));
+    const isOnlyBeverage = this.#orderMenu.every(menu => beveragMenuNames.includes(menu[ORDER.nameIndex]));
 
     if(isOnlyBeverage) {
       throw (ERROR.MESSAGE.onlyBeverage);
@@ -61,9 +63,9 @@ class OrderManager {
   }
 
   #checkMaxCount() {
-    const orederMenuCount = this.#orderMenu.reduce((acc, cur) => acc + Number(cur[1]), 0);
+    const orederMenuCount = this.#orderMenu.reduce((acc, cur) => acc + Number(cur[ORDER.countIndex]), 0);
 
-    if (orederMenuCount > 20) {
+    if (orederMenuCount > ORDER.maximumCount) {
       throw (ERROR.MESSAGE.maxCount);
     }
   }
@@ -79,7 +81,7 @@ class OrderManager {
   }
 
   calculateDiscountedTotalAmount(discountAmount) {
-    if (this.#totalAmount >= 120000) return this.#totalAmount + (discountAmount + 25000);
+    if (this.#totalAmount >= MINIMUM_AMOUNT.freeGiftGiveaway) return this.#totalAmount + (discountAmount + ORDER.freeGiftPrice);
 
     return this.#totalAmount + discountAmount;
   }

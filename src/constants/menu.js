@@ -21,5 +21,22 @@ const MENU = {
   },
 };
 
+const ORDER = {
+  initAmount: 0,
+  nameIndex: 0,
+  countIndex: 1,
+  minumumCount: 1,
+  maximumCount: 20,
+  delimiter: {
+    Comma: ',',
+    bar: '-',
+  },
+  freeGiftPrice: 25000,
+};
 
-export default MENU;
+const REGEXP = {
+  isNotNumber: /[^0-9]/,
+
+};
+
+export { MENU, ORDER, REGEXP };
