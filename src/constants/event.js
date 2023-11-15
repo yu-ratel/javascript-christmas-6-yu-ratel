@@ -1,6 +1,10 @@
 const DAYS = {
   weekends: [1, 2, 8, 9, 15, 16, 22, 23, 29, 30],
   specialDays: [3, 10, 17, 24, 25, 31],
+  event: {
+    start: 1,
+    end: 31,
+  },
   christmasEvent: {
     start: 1,
     end: 25,

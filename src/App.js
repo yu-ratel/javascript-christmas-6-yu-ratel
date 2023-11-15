@@ -27,7 +27,7 @@ class App {
   async #requestEstimatedVisitDate() {
     try {
       const visitDate = await this.InputView.estimatedVisitDate();
-      visitDateInput.visitDateRange(visitDate);
+      visitDateInput.validetor(visitDate);
       this.visitDate = visitDate;
       return null;
     } catch(error) {
