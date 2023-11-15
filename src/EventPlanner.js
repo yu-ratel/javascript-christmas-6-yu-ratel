@@ -1,6 +1,7 @@
+import EventHelper from './EventHelper.js';
+
 import { DAYS, MINIMUM_AMOUNT, MESSEGE }from './constants/event.js';
 import { ORDER } from './constants/menu.js';
-import EventHelper from './EventHelper.js';
 
 class EventPlanner {
   #visitdate;
@@ -12,6 +13,7 @@ class EventPlanner {
   #discount = 0; // 이벤트 도우미 
 
   constructor(visitdate, orderMenu, totalAmount) {
+    this.eventHelper = new EventHelper();
     this.#visitdate = visitdate;
     this.#eventApplie(orderMenu, totalAmount);
   }
@@ -43,10 +45,10 @@ class EventPlanner {
 
   #weekEventApplie(orderMenu) {
     if (DAYS.weekends.includes(Number(this.#visitdate))) {
-      return this.eventState.push([MESSEGE.discount.weekend, EventHelper.calculateWeekendEventDiscount(orderMenu)]);
+      return this.eventState.push([MESSEGE.discount.weekend, this.eventHelper.calculateWeekendEventDiscount(orderMenu)]);
     }
 
-    return this.eventState.push([MESSEGE.discount.weekday, EventHelper.calculateWeekdayEventDiscount(orderMenu)]);
+    return this.eventState.push([MESSEGE.discount.weekday, this.eventHelper.calculateWeekdayEventDiscount(orderMenu)]);
   }
 
   #specialEventApplie() {
@@ -57,7 +59,7 @@ class EventPlanner {
 
   #freeGiftEventApplie() {
     if ((this.#freeGift)) {
-      this.eventState.push([MESSEGE.freeGift, EventHelper.freeGiftEvent()]);
+      this.eventState.push([MESSEGE.freeGift, this.eventHelper.freeGiftEvent()]);
     }
   }
 

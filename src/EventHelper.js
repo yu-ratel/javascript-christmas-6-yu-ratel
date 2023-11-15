@@ -1,16 +1,21 @@
 import MenuManager from './MenuManager.js';
+
 import { FREE_GIFT } from './constants/event.js';
 import { DISCOUNT_AMOUNT } from './constants/event.js';
 
 class EventHelper {
+  constructor() {
+    this.menuManager = new MenuManager();
+  }
+
   static calculateChristmasEventDiscount(visitday) {
     const discountMoney = DISCOUNT_AMOUNT.christmasEvent.base;
 
     return discountMoney + (DISCOUNT_AMOUNT.christmasEvent.dailyIncrement * visitday);
   }
 
-  static calculateWeekdayEventDiscount(orderMenu) {
-    const discountMenu = MenuManager.getDessert();
+  calculateWeekdayEventDiscount(orderMenu) {
+    const discountMenu = this.menuManager.getDessert();
     let discountMoney = 0;
 
     orderMenu.forEach((menu) => {
@@ -25,8 +30,8 @@ class EventHelper {
     return discountMoney;
   }
 
-  static calculateWeekendEventDiscount(orderMenu) {
-    const discountMenu = MenuManager.getMain();
+  calculateWeekendEventDiscount(orderMenu) {
+    const discountMenu = this.menuManager.getMain();
     let discountMoney = 0;
 
     orderMenu.forEach((menu) => {
@@ -44,9 +49,8 @@ class EventHelper {
     return DISCOUNT_AMOUNT.specialEvent.base;
   }
 
-  static freeGiftEvent() {
-    const eventMenu = new MenuManager();
-    return -eventMenu.priceForName(FREE_GIFT.name);
+  freeGiftEvent() {
+    return -this.menuManager.priceForName(FREE_GIFT.name);
   }
 }
 

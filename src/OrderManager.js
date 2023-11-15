@@ -1,4 +1,5 @@
 import MenuManager from './MenuManager.js';
+
 import ERROR from './constants/error.js';
 import { ORDER, REGEXP } from './constants/menu.js';
 import { MINIMUM_AMOUNT } from './constants/event.js';
@@ -54,7 +55,7 @@ class OrderManager {
   }
 
   #checkOnlyBeverage() {
-    const beveragMenuNames = MenuManager.getBeverageNames();
+    const beveragMenuNames = this.menuManager.getBeverageNames();
     const isOnlyBeverage = this.#orderMenu.every(menu => beveragMenuNames.includes(menu[ORDER.nameIndex]));
 
     if(isOnlyBeverage) {
