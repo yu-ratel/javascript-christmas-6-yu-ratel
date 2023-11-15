@@ -1,4 +1,4 @@
-import { MENU } from './constants/menu.js';
+import { MENU, ORDER } from './constants/menu.js';
 
 class MenuManager {
   #menus;
@@ -10,7 +10,7 @@ class MenuManager {
   isMenuAvailable(orderMenu) {
     const availableMenu = this.#menus.map(menu => menu.name);
     
-    return orderMenu.every(menu => availableMenu.includes(menu[0]));
+    return orderMenu.every(menu => availableMenu.includes(menu[ORDER.nameIndex]));
   }
 
   priceForName(name) {
