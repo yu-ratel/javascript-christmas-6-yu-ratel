@@ -1,7 +1,7 @@
 import MenuManager from './MenuManager.js';
 
-import { FREE_GIFT } from './constants/event.js';
-import { DISCOUNT_AMOUNT } from './constants/event.js';
+import { FREE_GIFT } from '../constants/event.js'
+import { DISCOUNT_AMOUNT } from '../constants/event.js';
 
 class EventHelper {
   constructor() {

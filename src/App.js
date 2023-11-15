@@ -1,8 +1,8 @@
 import InputView from './InputView.js';
 import OutputView from './OutputView.js';
 
-import OrderManager from './OrderManager.js';
-import EventPlanner from './EventPlanner.js';
+import OrderManager from './domain/OrderManager.js';
+import EventPlanner from './domain/EventPlanner.js';
 
 import visitDateInput from './validator/visitDateInput.js';
 

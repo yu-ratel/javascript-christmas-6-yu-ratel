@@ -1,4 +1,4 @@
-import { MENU, ORDER } from './constants/menu.js';
+import { MENU, ORDER } from '../constants/menu.js';
 
 class MenuManager {
   #menus;

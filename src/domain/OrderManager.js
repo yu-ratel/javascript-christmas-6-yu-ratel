@@ -1,9 +1,9 @@
 import MenuManager from './MenuManager.js';
 
-import ERROR from './constants/error.js';
-import { ORDER, REGEXP } from './constants/menu.js';
-import { MINIMUM_AMOUNT } from './constants/event.js';
-import { FREE_GIFT } from './constants/event.js';
+import ERROR from '../constants/error.js';
+import { ORDER, REGEXP } from '../constants/menu.js';
+import { MINIMUM_AMOUNT } from '../constants/event.js';
+import { FREE_GIFT } from '../constants/event.js';
 
 class OrderManager {
   #orderMenu;

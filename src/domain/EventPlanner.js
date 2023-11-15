@@ -1,7 +1,7 @@
 import EventHelper from './EventHelper.js';
 
-import { DAYS, MINIMUM_AMOUNT, MESSEGE }from './constants/event.js';
-import { ORDER } from './constants/menu.js';
+import { DAYS, MINIMUM_AMOUNT, MESSEGE }from '../constants/event.js'
+import { ORDER } from '../constants/menu.js';
 
 class EventPlanner {
   #visitdate;
