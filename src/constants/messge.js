@@ -15,7 +15,7 @@ const MESSAGE = {
   orderAmount: (amount) => `\n<할인 전 총주문 금액>
 ${localString(amount)}원`,
   freeGift: '\n<증정 메뉴>',
-  freeGiftGiveaway: `${MENU.BEVERAGE.champagne} 1개`,
+  freeGiftGiveaway: `${MENU.BEVERAGE.champagne.name} 1개`,
   benefits: '\n<혜택 내역>',
   benefitsFromate: (message, discount) => `${message}: ${localString(discount)}원`,
   discountAmount: (amount) => `\n<총혜택 금액>
