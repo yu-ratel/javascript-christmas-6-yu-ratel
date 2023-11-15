@@ -2,7 +2,7 @@ import MenuManager from './MenuManager.js';
 
 import { DISCOUNT_AMOUNT, FREE_GIFT } from '../constants/event.js'
 
-class EventHelper {
+class EventCalculator {
   constructor() {
     this.menuManager = new MenuManager();
   }
@@ -53,4 +53,4 @@ class EventHelper {
   }
 }
 
-export default EventHelper;
+export default EventCalculator;

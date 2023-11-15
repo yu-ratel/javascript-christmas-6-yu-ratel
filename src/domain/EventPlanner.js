@@ -1,4 +1,4 @@
-import EventHelper from './EventHelper.js';
+import EventCalculator from './EventCalculator.js';
 
 import { DAYS, MINIMUM_AMOUNT, MESSEGE }from '../constants/event.js'
 import { ORDER } from '../constants/menu.js';
@@ -8,12 +8,12 @@ class EventPlanner {
 
   eventState = [];
 
-  #freeGift = false; // 이벤트 도우미 
+  #freeGift = false;
   
-  #discount = 0; // 이벤트 도우미 
+  #discount = 0;
 
   constructor(visitdate, orderMenu, totalAmount) {
-    this.eventHelper = new EventHelper();
+    this.eventCalculator = new EventCalculator();
     this.#visitdate = visitdate;
     this.#eventApplie(orderMenu, totalAmount);
   }
@@ -39,27 +39,27 @@ class EventPlanner {
 
   #christmasEventApplie() {
     if (this.#visitdate >= DAYS.christmasEvent.start && this.#visitdate <= DAYS.christmasEvent.end) {
-      this.eventState.push([MESSEGE.discount.christmas, EventHelper.calculateChristmasEventDiscount(this.#visitdate)]);
+      this.eventState.push([MESSEGE.discount.christmas, EventCalculator.calculateChristmasEventDiscount(this.#visitdate)]);
     }
   }
 
   #weekEventApplie(orderMenu) {
     if (DAYS.weekends.includes(Number(this.#visitdate))) {
-      return this.eventState.push([MESSEGE.discount.weekend, this.eventHelper.calculateWeekendEventDiscount(orderMenu)]);
+      return this.eventState.push([MESSEGE.discount.weekend, this.eventCalculator.calculateWeekendEventDiscount(orderMenu)]);
     }
 
-    return this.eventState.push([MESSEGE.discount.weekday, this.eventHelper.calculateWeekdayEventDiscount(orderMenu)]);
+    return this.eventState.push([MESSEGE.discount.weekday, this.eventCalculator.calculateWeekdayEventDiscount(orderMenu)]);
   }
 
   #specialEventApplie() {
     if (DAYS.specialDays.includes(Number(this.#visitdate))) {
-      this.eventState.push([MESSEGE.discount.special, EventHelper.specialEventDiscount()]);
+      this.eventState.push([MESSEGE.discount.special, EventCalculator.specialEventDiscount()]);
     }
   }
 
   #freeGiftEventApplie() {
     if ((this.#freeGift)) {
-      this.eventState.push([MESSEGE.freeGift, this.eventHelper.freeGiftEvent()]);
+      this.eventState.push([MESSEGE.freeGift, this.eventCalculator.freeGiftEvent()]);
     }
   }
 
