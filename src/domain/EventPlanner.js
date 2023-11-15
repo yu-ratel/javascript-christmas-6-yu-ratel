@@ -6,7 +6,7 @@ import { ORDER } from '../constants/menu.js';
 class EventPlanner {
   #visitdate;
 
-  eventState = [];
+  #eventState = [];
 
   #freeGift = false;
   
@@ -39,32 +39,32 @@ class EventPlanner {
 
   #christmasEventApplie() {
     if (this.#visitdate >= DAYS.christmasEvent.start && this.#visitdate <= DAYS.christmasEvent.end) {
-      this.eventState.push([MESSEGE.discount.christmas, EventCalculator.calculateChristmasEventDiscount(this.#visitdate)]);
+      this.#eventState.push([MESSEGE.discount.christmas, EventCalculator.calculateChristmasEventDiscount(this.#visitdate)]);
     }
   }
 
   #weekEventApplie(orderMenu) {
     if (DAYS.weekends.includes(Number(this.#visitdate))) {
-      return this.eventState.push([MESSEGE.discount.weekend, this.eventCalculator.calculateWeekendEventDiscount(orderMenu)]);
+      return this.#eventState.push([MESSEGE.discount.weekend, this.eventCalculator.calculateWeekendEventDiscount(orderMenu)]);
     }
 
-    return this.eventState.push([MESSEGE.discount.weekday, this.eventCalculator.calculateWeekdayEventDiscount(orderMenu)]);
+    return this.#eventState.push([MESSEGE.discount.weekday, this.eventCalculator.calculateWeekdayEventDiscount(orderMenu)]);
   }
 
   #specialEventApplie() {
     if (DAYS.specialDays.includes(Number(this.#visitdate))) {
-      this.eventState.push([MESSEGE.discount.special, EventCalculator.specialEventDiscount()]);
+      this.#eventState.push([MESSEGE.discount.special, EventCalculator.specialEventDiscount()]);
     }
   }
 
   #freeGiftEventApplie() {
     if ((this.#freeGift)) {
-      this.eventState.push([MESSEGE.freeGift, this.eventCalculator.freeGiftEvent()]);
+      this.#eventState.push([MESSEGE.freeGift, this.eventCalculator.freeGiftEvent()]);
     }
   }
 
   calculateTotalDiscount() {
-    this.#discount = this.eventState.reduce((acc, cur) => acc + cur[ORDER.countIndex], 0);
+    this.#discount = this.#eventState.reduce((acc, cur) => acc + cur[ORDER.countIndex], 0);
     const totalDiscount = this.#discount;
 
     return totalDiscount;
@@ -78,6 +78,12 @@ class EventPlanner {
     if (positiveTotalDiscount >= MINIMUM_AMOUNT.badgeGiveaway.star) return MESSEGE.badge.star;
 
     return MESSEGE.badge.base;
+  }
+
+  getEventState() {
+    const state = this.#eventState;
+
+    return state;
   }
 
   getIsFreeGift() {

@@ -60,7 +60,7 @@ class App {
 
     OutputView.orderAmount(orderAmount);
     OutputView.freeGift(event.getIsFreeGift());
-    OutputView.Benefits(event.eventState, discountAmount);
+    OutputView.Benefits(event.getEventState(), discountAmount);
     OutputView.discountAmount(discountAmount);
     OutputView.discountedTotalAmount(this.orderMenu.calculateDiscountedTotalAmount(discountAmount));
     OutputView.BadgeEvent(event.calculateBadgeEvent());
