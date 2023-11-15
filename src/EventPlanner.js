@@ -1,4 +1,4 @@
-import { DAYS }from './constants/event.js';
+import { DAYS, MINIMUM_AMOUNT, MESSEGE }from './constants/event.js';
 import EventHelper from './EventHelper.js';
 
 class EventPlanner {
@@ -17,7 +17,7 @@ class EventPlanner {
 
 
   #eventApplie(orderMenu, totalAmount) {
-    if (totalAmount >= 10000) {
+    if (totalAmount >= MINIMUM_AMOUNT.eventAttend) {
       this.#christmasEventApplie();
       this.#weekEventApplie(orderMenu);
       this.#specialEventApplie();
@@ -29,34 +29,34 @@ class EventPlanner {
   }
 
   #isFreeGift(totalAmount) {
-    if (totalAmount >= 120000) {
+    if (totalAmount >= MINIMUM_AMOUNT.freeGiftGiveaway) {
       this.#freeGift = true;
     }
   }
 
   #christmasEventApplie() {
-    if (this.#visitdate >= 1 && this.#visitdate <= 25) {
-      this.eventState.push(['크리스마스 디데이 할인', EventHelper.calculateChristmasEventDiscount(this.#visitdate)]);
+    if (this.#visitdate >= DAYS.christmasEvent.start && this.#visitdate <= DAYS.christmasEvent.end) {
+      this.eventState.push([MESSEGE.discount.christmas, EventHelper.calculateChristmasEventDiscount(this.#visitdate)]);
     }
   }
 
   #weekEventApplie(orderMenu) {
     if (DAYS.weekends.includes(Number(this.#visitdate))) {
-      return this.eventState.push(['주말 할인', EventHelper.calculateWeekendEventDiscount(orderMenu)]);
+      return this.eventState.push([MESSEGE.discount.weekend, EventHelper.calculateWeekendEventDiscount(orderMenu)]);
     }
 
-    return this.eventState.push(['평일 할인', EventHelper.calculateWeekdayEventDiscount(orderMenu)]);
+    return this.eventState.push([MESSEGE.discount.weekday, EventHelper.calculateWeekdayEventDiscount(orderMenu)]);
   }
 
   #specialEventApplie() {
     if (DAYS.specialDays.includes(Number(this.#visitdate))) {
-      this.eventState.push(['특별 할인', EventHelper.specialEventDiscount()]);
+      this.eventState.push([MESSEGE.discount.special, EventHelper.specialEventDiscount()]);
     }
   }
 
   #freeGiftEventApplie() {
     if ((this.#freeGift)) {
-      this.eventState.push(['증정 이벤트', EventHelper.freeGiftEvent()]);
+      this.eventState.push([MESSEGE.freeGift, EventHelper.freeGiftEvent()]);
     }
   }
 
@@ -70,11 +70,11 @@ class EventPlanner {
   calculateBadgeEvent() {
     const positiveTotalDiscount = Math.abs(this.#discount) ;
 
-    if (positiveTotalDiscount >= 20000) return '산타';
-    if (positiveTotalDiscount >= 10000) return '트리';
-    if (positiveTotalDiscount >= 5000) return '별';
+    if (positiveTotalDiscount >= MINIMUM_AMOUNT.badgeGiveaway.santa) return MESSEGE.badge.santa;
+    if (positiveTotalDiscount >= MINIMUM_AMOUNT.badgeGiveaway.tree) return MESSEGE.badge.tree;
+    if (positiveTotalDiscount >= MINIMUM_AMOUNT.badgeGiveaway.star) return MESSEGE.badge.star;
 
-    return '없음';
+    return MESSEGE.badge.base;
   }
 
   getIsFreeGift() {
