@@ -1,10 +1,11 @@
 import MENU from './constants/menu.js';
+import { DISCOUNT_AMOUNT } from './constants/event.js';
 
 class EventHelper {
   static calculateChristmasEventDiscount(visitday) {
-    const discountMoney = 900;
+    const discountMoney = DISCOUNT_AMOUNT.christmasEvent.base;
 
-    return -(discountMoney + (100 * visitday));
+    return discountMoney + (DISCOUNT_AMOUNT.christmasEvent.dailyIncrement * visitday);
   }
 
   static calculateWeekdayEventDiscount(orderMenu) {
@@ -16,7 +17,7 @@ class EventHelper {
       const discountedMenu = discountMenu.find(dessert => dessert.name === name);
       
       if (discountedMenu) {
-        discountMoney += (count * -2023);
+        discountMoney += (count * DISCOUNT_AMOUNT.weekEvent.base);
       }
     });
 
@@ -32,14 +33,14 @@ class EventHelper {
       const discountedMenu = discountMenu.find(main => main.name === name);
       
       if (discountedMenu) {
-        discountMoney += (count * -2023);
+        discountMoney += (count * DISCOUNT_AMOUNT.weekEvent.base);
       }
     });
     return discountMoney;
   }
 
   static specialEventDiscount() {
-    return -1000;
+    return DISCOUNT_AMOUNT.specialEvent.base;
   }
 
   static freeGiftEvent() {

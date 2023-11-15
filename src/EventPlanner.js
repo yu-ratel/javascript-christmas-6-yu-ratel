@@ -1,4 +1,4 @@
-import EVENT from './constants/event.js';
+import { DAYS }from './constants/event.js';
 import EventHelper from './EventHelper.js';
 
 class EventPlanner {
@@ -41,7 +41,7 @@ class EventPlanner {
   }
 
   #weekEventApplie(orderMenu) {
-    if (EVENT.weekends.includes(Number(this.#visitdate))) {
+    if (DAYS.weekends.includes(Number(this.#visitdate))) {
       return this.eventState.push(['주말 할인', EventHelper.calculateWeekendEventDiscount(orderMenu)]);
     }
 
@@ -49,7 +49,7 @@ class EventPlanner {
   }
 
   #specialEventApplie() {
-    if (EVENT.specialDays.includes(Number(this.#visitdate))) {
+    if (DAYS.specialDays.includes(Number(this.#visitdate))) {
       this.eventState.push(['특별 할인', EventHelper.specialEventDiscount()]);
     }
   }
