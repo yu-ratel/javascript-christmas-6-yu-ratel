@@ -2,6 +2,7 @@ import MenuManager from './MenuManager.js';
 import ERROR from './constants/error.js';
 import { ORDER, REGEXP } from './constants/menu.js';
 import { MINIMUM_AMOUNT } from './constants/event.js';
+import { FREE_GIFT } from './constants/event.js';
 
 class OrderManager {
   #orderMenu;
@@ -81,7 +82,7 @@ class OrderManager {
   }
 
   calculateDiscountedTotalAmount(discountAmount) {
-    if (this.#totalAmount >= MINIMUM_AMOUNT.freeGiftGiveaway) return this.#totalAmount + (discountAmount + ORDER.freeGiftPrice);
+    if (this.#totalAmount >= MINIMUM_AMOUNT.freeGiftGiveaway) return this.#totalAmount + (discountAmount + this.menuManager.priceForName(FREE_GIFT.name));
 
     return this.#totalAmount + discountAmount;
   }

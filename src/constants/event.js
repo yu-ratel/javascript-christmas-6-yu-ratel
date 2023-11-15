@@ -46,5 +46,9 @@ const MESSEGE = {
   },
 };
 
+const FREE_GIFT = {
+  name: '샴페인',
+  count: 1,
+};
 
-export { DAYS, DISCOUNT_AMOUNT, MINIMUM_AMOUNT, MESSEGE };
+export { DAYS, DISCOUNT_AMOUNT, MINIMUM_AMOUNT, MESSEGE, FREE_GIFT };

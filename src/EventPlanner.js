@@ -1,4 +1,5 @@
 import { DAYS, MINIMUM_AMOUNT, MESSEGE }from './constants/event.js';
+import { ORDER } from './constants/menu.js';
 import EventHelper from './EventHelper.js';
 
 class EventPlanner {
@@ -61,7 +62,7 @@ class EventPlanner {
   }
 
   calculateTotalDiscount() {
-    this.#discount = this.eventState.reduce((acc, cur) => acc + cur[1], 0);
+    this.#discount = this.eventState.reduce((acc, cur) => acc + cur[ORDER.countIndex], 0);
     const totalDiscount = this.#discount;
 
     return totalDiscount;

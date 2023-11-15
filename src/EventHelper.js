@@ -1,4 +1,5 @@
-import { MENU } from './constants/menu.js';
+import MenuManager from './MenuManager.js';
+import { FREE_GIFT } from './constants/event.js';
 import { DISCOUNT_AMOUNT } from './constants/event.js';
 
 class EventHelper {
@@ -9,7 +10,7 @@ class EventHelper {
   }
 
   static calculateWeekdayEventDiscount(orderMenu) {
-    const discountMenu = Object.values(MENU.DESSERT);
+    const discountMenu = MenuManager.getDessert();
     let discountMoney = 0;
 
     orderMenu.forEach((menu) => {
@@ -25,7 +26,7 @@ class EventHelper {
   }
 
   static calculateWeekendEventDiscount(orderMenu) {
-    const discountMenu = Object.values(MENU.MAIN);
+    const discountMenu = MenuManager.getMain();
     let discountMoney = 0;
 
     orderMenu.forEach((menu) => {
@@ -44,7 +45,8 @@ class EventHelper {
   }
 
   static freeGiftEvent() {
-    return -MENU.BEVERAGE.champagne.price;
+    const eventMenu = new MenuManager();
+    return -eventMenu.priceForName(FREE_GIFT.name);
   }
 }
 
