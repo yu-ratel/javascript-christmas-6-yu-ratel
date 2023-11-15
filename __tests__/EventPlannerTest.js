@@ -17,4 +17,3 @@ describe('acceptance test', () => {
     expect(eventState).toEqual(result);
   });
 });
-
